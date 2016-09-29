@@ -1,0 +1,114 @@
+<head>
+  <title>project</title>
+</head>
+
+<body>
+  {{> loginButtons}}
+	<br>
+	<br>
+  {{> display}}
+</body>
+
+<template name="display">
+  {{#if currentUser}}
+	<a href="student"> <input type="button" value="Add Student" name="student"></a>
+	<a href="teacher"> <input type="button" value="Add Teacher" name="teacher"></a>
+	<a href="attendance"> <input type="button" value="Take Attendance" name="attendance"></a>
+   {{else}}
+    <p>You must be logged-in to see this content.</p>
+  {{/if}}
+</template>
+
+<template name="student">
+{{#if currentUser}}
+	<form class="btn1">
+		<fieldset>
+			<legend><h2> Student's Information Form </h2></legend>
+			<label> Student's Name:</label>
+			<input type="text" name="nm">
+			<br>
+			<label> Father's Name:</label>
+			<input type="text" name="fname">
+			<br>
+			<label> Mother's Name:</label>
+			<input type="text" name="mname">
+			<br>
+			<br>
+			<label> Date of Birth:</label>
+			<input type="date" name="date">
+			<br>
+			<label>Address</label>
+			<textarea name="add" rows="2" cols="60"> </textarea>
+			<br>
+			<label>Phone No.</label>
+			<input type="text" name="phn">
+			<br>
+			<label>Email Id</label>
+			<input type="email" name="email">
+			<br>
+		</fieldset>
+		<input type="submit" value="Submit">
+	</form>
+{{/if}}
+</template>
+
+<template name="teacher">
+	{{#if currentUser}}
+	<form class="btn2">
+		<fieldset>
+			<legend><h2> Teacher's Information Form </h2></legend>
+			<label> Teacher's Name:</label>
+			<input type="text" name="nm">
+			<br>
+			<label>Qualification:</label>
+			<select name="qualification">
+			    <option value="btech">Btech</option>
+			    <option value="diploma">Diploma</option>
+			    <option value="bca">BCA</option>
+			    <option value="mca">MCA</option>
+			</select>
+			<br>
+			<br>
+			<label> Date of Birth:</label>
+			<input type="date" name="date">
+			<br>
+			<label>Address</label>
+			<textarea name="add" rows="2" cols="60"> </textarea>
+			<br>
+			<label>Phone No.</label>
+			<input type="text" name="phn">
+			<br>
+			<label>Email Id</label>
+			<input type="email" name="email">
+			<br>
+			<label>Date of registration is:</label>
+			<label> {{date}},{{month}},{{year}} </label>
+			<br>
+		</fieldset>
+		<input type="submit" value="Submit">
+	</form>
+{{/if}}
+</template>
+
+<template name="retrieveInformation">
+	{{#if currentUser}}
+          <form class="toggle">
+                <ul>
+	           {{#each databaseCall}}
+	             <li>{{name}}
+	                <p>{{>toggle}}</p>
+	             </li>
+	           {{/each}}
+                </ul>
+                <input type="submit" value="Submit">
+          </form>
+	{{/if}}
+</template>
+<template name="toggle">
+     <!-- Rounded switch -->
+     <label class="switch">
+          <input type="checkbox" name="toggle" value="{{name}}" class="check">
+          <div class="slider round" > </div>
+     </label>
+</template>
+
