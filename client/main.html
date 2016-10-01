@@ -11,12 +11,50 @@
 
 <template name="display">
   {{#if currentUser}}
+	<a href="department"> <input type="button" value="Add Department" name="department"></a>
 	<a href="student"> <input type="button" value="Add Student" name="student"></a>
 	<a href="teacher"> <input type="button" value="Add Teacher" name="teacher"></a>
 	<a href="attendance"> <input type="button" value="Take Attendance" name="attendance"></a>
+	<a href="allocateteacher"> <input type="button" value="Allocate Teacher" name="allocateteacher"></a>
    {{else}}
     <p>You must be logged-in to see this content.</p>
   {{/if}}
+</template>
+<template name="allocateTeacher">
+{{#if currentUser}}
+		<br> <br>
+		<form class="teacher"> <div>
+          		<label>List Of Departments</label>
+			<select name="dept">
+	            	<option>Departments</option>
+		    	<option>           </option>
+		    	<option>           </option>
+	        	 {{#each department}}
+                   		 <option value="{{name}}">{{name}}</option>
+                 	{{/each}}
+	        </select>
+                </div> 
+		<input type="submit" value="Get Teacher's List">
+		</form> 
+		<li> {{check}}</li>            
+	          {{/if}}
+</template>
+<template name="departmentInformation">
+{{#if currentUser}}
+             <form class="deptt">
+		      <fieldset>
+			<legend> Department's Information</legend>
+			<br>
+		          <label>Department's Name</label>
+			  <input type="text" name="deptt" class="form-control amp" placeholder="Department's Name">
+			<br>  
+			  <label>Head Of Department</label>
+			  <input type="text" name="hod" class="form-control amp" placeholder="HOD">
+		      	<br>
+		      <input type="submit" value="Add Department"> 
+		</fieldset>
+	          </form>
+{{/if}}
 </template>
 
 <template name="student">
@@ -84,6 +122,17 @@
 			<label>Date of registration is:</label>
 			<label> {{date}},{{month}},{{year}} </label>
 			<br>
+			<div>
+          		<label>List Of Departments</label>
+			<select name="dept">
+	            	<option>Departments</option>
+		    	<option>           </option>
+		    	<option>           </option>
+	        	 {{#each department}}
+                   		 <option value="{{name}}">{{name}}</option>
+                 	{{/each}}
+	        </select>
+                </div>
 		</fieldset>
 		<input type="submit" value="Submit">
 	</form>

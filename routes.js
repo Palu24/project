@@ -14,3 +14,13 @@ FlowRouter.route('/attendance', {
     BlazeLayout.render("retrieveInformation");
   }
 });
+FlowRouter.route('/department', {
+  action: function() {
+    BlazeLayout.render("departmentInformation");
+  }
+});
+FlowRouter.route('/allocateteacher', {
+  action: function() {
+    BlazeLayout.render("allocateTeacher");
+  }
+});
