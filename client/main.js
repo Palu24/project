@@ -18,6 +18,15 @@ Template.student.events({
 		Meteor.call('insertStudent',naam,fname,mname,date,address,phone,email);
     }
 });
+Template.insertSubject.events({
+    'submit .sub': function(event){
+         	event.preventDefault();
+		var deptt= event.target.dept.value;
+		var sub= event.target.subject.value;
+		Meteor.call('insertSubject',deptt,sub);
+		event.target.subject.value="";
+    }
+});
 Template.allocateTeacher.events({
     'submit .teacher': function(event){
          	event.preventDefault();
@@ -100,6 +109,16 @@ Template.teacher.helpers({
 Template.retrieveInformation.helpers({
 	 'databaseCall': function(){
        return Students.find().fetch();
+    }
+});
+Template.retrieveInformation.helpers({
+	'department':function(){
+		return Departments.find().fetch();
+}
+});
+Template.timeTable.helpers({
+	 'teacher': function(){
+       return Teachers.find().fetch();
     }
 });	
 Template.allocateTeacher.helpers({

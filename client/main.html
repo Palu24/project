@@ -16,9 +16,34 @@
 	<a href="teacher"> <input type="button" value="Add Teacher" name="teacher"></a>
 	<a href="attendance"> <input type="button" value="Take Attendance" name="attendance"></a>
 	<a href="allocateteacher"> <input type="button" value="Allocate Teacher" name="allocateteacher"></a>
+	<a href="allocatesubject"> <input type="button" value="Allocate Subject" name="allocatesubject"></a>
+	<a href="timetable"> <input type="button" value="Insert Time Table" name="inserttimetable"></a>
+	<a href="insertsubject"> <input type="button" value="Assign Subjects" name="insertsubjects"></a>
    {{else}}
     <p>You must be logged-in to see this content.</p>
   {{/if}}
+</template>
+<template name="allocateSubject">
+<p> yeah </p>
+</template>
+<template name="insertSubject">
+{{#if currentUser}}
+		<br> <br>
+		<form class="sub"> <div>
+          		<label>List Of Departments</label>
+			<select name="dept">
+	            	<option>Departments</option>
+		    	<option>           </option>
+		    	<option>           </option>
+	        	 {{#each department}}
+                   		 <option value="{{name}}">{{name}}</option>
+                 	{{/each}}
+	        </select>
+                </div> 
+		<input type="text" name="subject">
+		<input type="submit" value="Insert">
+		</form>            
+	          {{/if}}
 </template>
 <template name="allocateTeacher">
 {{#if currentUser}}
@@ -37,6 +62,24 @@
 		<input type="submit" value="Get Teacher's List">
 		</form> 
 		<li> {{check}}</li>            
+	          {{/if}}
+</template>
+<template name="timeTable">
+{{#if currentUser}}
+		<br> <br>
+		<form class="teacher"> <div>
+          		<label>List Of Teachers</label>
+			<select name="teacher">
+	            	<option>Teachers</option>
+		    	<option>           </option>
+		    	<option>           </option>
+	        	 {{#each teacher}}
+                   		 <option value="{{name}}">{{name}}</option>
+                 	{{/each}}
+	        </select>
+                </div> 
+		<input type="submit" value="Get Teacher's List">
+		</form>            
 	          {{/if}}
 </template>
 <template name="departmentInformation">

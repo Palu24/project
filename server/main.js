@@ -5,7 +5,7 @@ Meteor.publish('student', function(){
 Meteor.publish('teacher', function(){
     return Teachers.find();
 });
-Meteor.publish('deaprtment', function(){
+Meteor.publish('department', function(){
     return Departments.find();
 });
 Meteor.publish('attendance', function(){
@@ -43,6 +43,12 @@ Meteor.methods({
 			var found= Teachers.find({department:deptt}).fetch();
 			return found;
 			console.log("teacher found");
+			},
+		'insertSubject':function(deptt,sub){
+			check(deptt, String);
+			check(sub, String);
+			Subjects.update({deptt:deptt},{subjects:sub});
+			console.log("subjects inserted");
 			},
 	'insertTeacher':function(naam,qualification,date,month,year,address,phone,email,deptt){
 			check(naam, String);

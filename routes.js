@@ -24,3 +24,18 @@ FlowRouter.route('/allocateteacher', {
     BlazeLayout.render("allocateTeacher");
   }
 });
+FlowRouter.route('/allocatesubject', {
+  action: function() {
+    BlazeLayout.render("allocateSubject");
+  }
+});
+FlowRouter.route('/timetable', {
+  action: function() {
+    BlazeLayout.render("timeTable");
+  }
+});
+FlowRouter.route('/insertsubject', {
+  action: function() {
+    BlazeLayout.render("insertSubject");
+  }
+});
