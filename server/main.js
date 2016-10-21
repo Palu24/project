@@ -11,6 +11,9 @@ Meteor.publish('department', function(){
 Meteor.publish('attendance', function(){
     return Attendance.find();
 });
+Meteor.publish('subject', function(){
+    return Subjects.find();
+});
 
 
 Meteor.methods({
@@ -39,32 +42,28 @@ Meteor.methods({
 			console.log("department inserted");
 			},
 		'checkTeacher':function(deptt){
-			check(deptt, String);
 			var found= Teachers.find({department:deptt}).fetch();
-			return found;
 			console.log("teacher found");
+			return found;
 			},
-		'insertSubject':function(deptt,sub){
-			check(deptt, String);
-			check(sub, String);
-			Subjects.update({deptt:deptt},{subjects:sub});
+		'checkSubject':function(deptt,sem){
+			var found= Subjects.find({department:deptt,semester:sem}).fetch();
+			console.log("subject found");
+			return found;
+			
+			},
+		'insertSubject':function(deptt,sub,sem){
+			Subjects.insert({department:deptt,subjects:sub,semester:sem});
 			console.log("subjects inserted");
 			},
-	'insertTeacher':function(naam,qualification,date,month,year,address,phone,email,deptt){
-			check(naam, String);
-			check(qualification, String);
-			check(date , String);
-			check(address, String);
-			check(phone , String);
-			check(email, String);
-			check(deptt, String);
+	'insertTeacher':function(naam,qualification,date,address,phone,email,deptt){
 			Teachers.insert({name: naam,
 					 qualification: qualification,
 					 dob: date,
 					 address: address,
 					 phone: phone,
 					 emailId : email,
-					 deptartment:deptt});
+					 department:deptt});
 			console.log("data inserted of teacher");
 			},
 		
@@ -73,3 +72,53 @@ Meteor.methods({
 			console.log(Attendance.find().fetch());
 			}	
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

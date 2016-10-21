@@ -3,6 +3,7 @@ Meteor.subscribe('student');
 Meteor.subscribe('teacher');
 Meteor.subscribe('department');
 Meteor.subscribe('attendance');
+Meteor.subscribe('subject');
 
 
 Template.student.events({
@@ -16,6 +17,13 @@ Template.student.events({
 		var phone= event.target.phn.value;
 		var email= event.target.email.value;
 		Meteor.call('insertStudent',naam,fname,mname,date,address,phone,email);
+		 event.target.nm.value=" ";
+		 event.target.fname.value=" ";
+		event.target.mname.value=" ";
+		event.target.date.value=" ";
+		event.target.add.value=" ";
+		event.target.phn.value=" ";
+		event.target.email.value=" ";
     }
 });
 Template.insertSubject.events({
@@ -23,27 +31,40 @@ Template.insertSubject.events({
          	event.preventDefault();
 		var deptt= event.target.dept.value;
 		var sub= event.target.subject.value;
-		Meteor.call('insertSubject',deptt,sub);
+		var sem= event.target.sem.value;
+		Meteor.call('insertSubject',deptt,sub,sem);
 		event.target.subject.value="";
     }
 });
-Template.allocateTeacher.events({
-    'submit .teacher': function(event){
+Template.allocateSubject.events({
+    'submit .sub': function(event){
          	event.preventDefault();
 		var deptt= event.target.dept.value;
+		var sem= event.target.sem.value;
 		Meteor.call('checkTeacher',deptt,function(err,data){
 										if(err){
 										   console.log(err);
 											} 
 									    	else{ 
-										    Session.set('teacher',data); 
+										    Session.set('checkt',data); 
 											}
 											    }				
 					    );
-			        }
+			       
 
-    
+		Meteor.call('checkSubject',deptt,sem,function(err,data){
+										if(err){
+										   console.log(err);
+											} 
+									    	else{ 
+										    Session.set('checks',data); 
+											}
+											    }				
+					    );
+			        
+    }
 });
+
 Template.teacher.events({
     'submit .btn2': function(event){
 		event.preventDefault();
@@ -55,6 +76,12 @@ Template.teacher.events({
 		var email= event.target.email.value;
 		var deptt= event.target.dept.value;
 		Meteor.call('insertTeacher',naam,qualification,date,address,phone,email,deptt);
+		 event.target.nm.value= " ";
+		event.target.date.value = " ";
+		event.target.add.value=" ";
+		event.target.phn.value=" ";
+		event.target.email.value=" ";
+		event.target.dept.value="Departments";
     }
 });
 Template.departmentInformation.events({
@@ -63,6 +90,8 @@ Template.departmentInformation.events({
 		var deptt= event.target.deptt.value;
 		var hod= event.target.hod.value;
 		Meteor.call('insertDepartment',deptt,hod);
+		event.target.deptt.value=" ";
+		 event.target.hod.value=" ";
     }
 });
 Template.retrieveInformation.events({
@@ -121,12 +150,33 @@ Template.timeTable.helpers({
        return Teachers.find().fetch();
     }
 });	
-Template.allocateTeacher.helpers({
-	 'teacher': function(){
-       return Teachers.find().fetch();
+
+Template.insertSubject.helpers({
+	 'department': function(){
+       return Departments.find().fetch();
+    }
+});	
+Template.allocateSubject.helpers({
+	 'department': function(){
+       return Departments.find().fetch();
     },
-	'check':function(){
-	 var  found = session.get('teacher');
-	return found;}
-});
-	
+	'teacher':function(){
+	var foundt= Session.get("checkt");
+	return foundt;
+	},
+	'subject':function(){
+	var founds= Session.get("checks");
+	return founds;
+	}
+});	
+		
+
+
+
+
+
+
+
+
+
+

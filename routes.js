@@ -19,11 +19,7 @@ FlowRouter.route('/department', {
     BlazeLayout.render("departmentInformation");
   }
 });
-FlowRouter.route('/allocateteacher', {
-  action: function() {
-    BlazeLayout.render("allocateTeacher");
-  }
-});
+
 FlowRouter.route('/allocatesubject', {
   action: function() {
     BlazeLayout.render("allocateSubject");

@@ -1,4 +1,44 @@
 /* CSS declarations go here */
+/*hgdhfgdhgf*/
+#login-sign-in-link{
+float: left;
+  color: #ffa369;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 2.6em;
+  width: 50%;
+  transition: all 300ms ease-in;
+  cursor: pointer;
+  margin-left:500px;
+  margin-top:250px;
+}
+#login-dropdown-list
+{
+  background: #ffa369;
+  height: initial;
+  padding: 3em;
+  z-index: 10000000;
+}
+#content{
+margin-left:520px;
+margin-top:-10px;
+}
+.login-link-text{
+background: #000000;
+width:30px;	
+}
+.login-close-text
+{
+	margin-top:-30px;
+}
+#signup-link
+{
+ background: #ffa369;
+  height: initial;
+  padding: 3em;
+  z-index: 10000000;
+}
 button{
 	display: block;
 }

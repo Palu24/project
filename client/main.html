@@ -15,7 +15,6 @@
 	<a href="student"> <input type="button" value="Add Student" name="student"></a>
 	<a href="teacher"> <input type="button" value="Add Teacher" name="teacher"></a>
 	<a href="attendance"> <input type="button" value="Take Attendance" name="attendance"></a>
-	<a href="allocateteacher"> <input type="button" value="Allocate Teacher" name="allocateteacher"></a>
 	<a href="allocatesubject"> <input type="button" value="Allocate Subject" name="allocatesubject"></a>
 	<a href="timetable"> <input type="button" value="Insert Time Table" name="inserttimetable"></a>
 	<a href="insertsubject"> <input type="button" value="Assign Subjects" name="insertsubjects"></a>
@@ -24,7 +23,48 @@
   {{/if}}
 </template>
 <template name="allocateSubject">
-<p> yeah </p>
+{{#if currentUser}}
+		<br> <br>
+		<form class="sub"> <div>
+          		<label>List Of Departments</label>
+			<select name="dept">
+	            	<option>Departments</option>
+		    	<option>           </option>
+		    	<option>           </option>
+	        	 {{#each department}}
+                   		 <option value="{{name}}">{{name}}</option>
+                 	{{/each}}
+	        </select>
+                </div> 
+		<div>
+          		<label>List Of Semesters</label>
+			<select name="sem">
+	            	<option>Semesters</option>
+		    	<option>           </option>
+		    	<option>           </option>
+			<option>1 Semester</option>
+		    	<option>2 Semester</option>
+			<option>3 Semester</option>
+		    	<option>4 Semester</option>
+	        	<option>5 Semester</option>
+		    	<option>6 Semester</option> 
+                   	
+	        </select>
+		</div>
+		<input type="submit" value="Get Teacher's List">
+		<input type="submit" value="Get Subject's List">
+		 {{#each teacher}}
+			<br><br>
+                   		 <li>{{name}}</li>
+                 	
+		 {{#each subject}}
+			<input type="checkbox"  name="{{subjects}}" >{{subjects}}
+                   	
+                 	{{/each}}
+		
+		{{/each}}
+		</form>            
+	          {{/if}}
 </template>
 <template name="insertSubject">
 {{#if currentUser}}
@@ -40,30 +80,27 @@
                  	{{/each}}
 	        </select>
                 </div> 
+		<div>
+          		<label>List Of Semesters</label>
+			<select name="sem">
+	            	<option>Semesters</option>
+		    	<option>           </option>
+		    	<option>           </option>
+			<option>1 Semester</option>
+		    	<option>2 Semester</option>
+			<option>3 Semester</option>
+		    	<option>4 Semester</option>
+	        	<option>5 Semester</option>
+		    	<option>6 Semester</option> 
+                   	
+	        </select>
+		</div>
 		<input type="text" name="subject">
 		<input type="submit" value="Insert">
 		</form>            
 	          {{/if}}
 </template>
-<template name="allocateTeacher">
-{{#if currentUser}}
-		<br> <br>
-		<form class="teacher"> <div>
-          		<label>List Of Departments</label>
-			<select name="dept">
-	            	<option>Departments</option>
-		    	<option>           </option>
-		    	<option>           </option>
-	        	 {{#each department}}
-                   		 <option value="{{name}}">{{name}}</option>
-                 	{{/each}}
-	        </select>
-                </div> 
-		<input type="submit" value="Get Teacher's List">
-		</form> 
-		<li> {{check}}</li>            
-	          {{/if}}
-</template>
+
 <template name="timeTable">
 {{#if currentUser}}
 		<br> <br>
@@ -203,4 +240,24 @@
           <div class="slider round" > </div>
      </label>
 </template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
