@@ -9,15 +9,16 @@
   {{> display}}
 </body>
 
+
 <template name="display">
   {{#if currentUser}}
 	<a href="department"> <input type="button" value="Add Department" name="department"></a>
 	<a href="student"> <input type="button" value="Add Student" name="student"></a>
 	<a href="teacher"> <input type="button" value="Add Teacher" name="teacher"></a>
 	<a href="attendance"> <input type="button" value="Take Attendance" name="attendance"></a>
-	<a href="allocatesubject"> <input type="button" value="Allocate Subject" name="allocatesubject"></a>
+	<a href="allocatesubject"> <input type="button" value="Assign Subjects" name="allocatesubject"></a>
 	<a href="timetable"> <input type="button" value="Insert Time Table" name="inserttimetable"></a>
-	<a href="insertsubject"> <input type="button" value="Assign Subjects" name="insertsubjects"></a>
+	<a href="insertsubject"> <input type="button" value="Add Subjects" name="insertsubjects"></a>
    {{else}}
     <p>You must be logged-in to see this content.</p>
   {{/if}}
@@ -51,8 +52,7 @@
                    	
 	        </select>
 		</div>
-		<input type="submit" value="Get Teacher's List">
-		<input type="submit" value="Get Subject's List">
+		<input type="submit" value="Get Teacher's List with Subject's List">
 		 {{#each teacher}}
 			<br><br>
                    		 <li>{{name}}</li>
@@ -104,7 +104,20 @@
 <template name="timeTable">
 {{#if currentUser}}
 		<br> <br>
-		<form class="teacher"> <div>
+		<form class="teacher">
+		 <div>
+          		<label>List Of Departments</label>
+			<select name="deptt">
+	            	<option>Departments</option>
+		    	<option>           </option>
+		    	<option>           </option>
+	        	 {{#each department}}
+                   		 <option value="{{name}}">{{name}}</option>
+                 	{{/each}}
+	        </select>
+                </div> <input type="submit" value="Get Teacher's List">
+		<br><br> <br>
+		<div>
           		<label>List Of Teachers</label>
 			<select name="teacher">
 	            	<option>Teachers</option>
@@ -114,9 +127,257 @@
                    		 <option value="{{name}}">{{name}}</option>
                  	{{/each}}
 	        </select>
-                </div> 
-		<input type="submit" value="Get Teacher's List">
-		</form>            
+                </div>
+			<!--<input type="submit" class="get" value="Get">-->
+		</form>
+		<form class="timetable">
+
+			<br><br>
+                
+                 	<tr>
+				<th name="days"><pre><h2>  Days</h2></pre></th>
+				<th name="mon"><pre><h2>  Monday</h2></pre></th>
+				<th name="tue"><pre><h2> Tuesday</h2></pre></th>
+				<th name="wed"><pre><h2>   Wednesday</h2></pre></th>
+				<th name="thurs"><pre><h2>  Thursday</h2></pre></th>
+				<th name="fri"><pre><h2>  Friday</h2></pre></th>
+			</tr>
+			<!--1 lecture-->
+			<tr>
+				<th name="1">1</th>
+				<td>
+					<input type="text" placeholder="Subject's name" name="monsub1">
+					<br>
+					<input type="text" placeholder="Classname" name="monclass1">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="tuesub1">
+					<br>
+					<input type="text" placeholder="Classname" name="tueclass1">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="wedsub1">
+					<br>
+					<input type="text" placeholder="Classname" name="wedclass1">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="thurssub1">
+					<br>
+					<input type="text" placeholder="Classname" name="thursclass1">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="frisub1">
+					<br>
+					<input type="text" placeholder="Classname" name="friclass1">
+				</td>
+			</tr>
+			<!--2 lecture-->
+			<tr>
+				<th name="2">2</th>
+				<td>
+					<input type="text" placeholder="Subject's name" name="monsub2">
+					<br>
+					<input type="text" placeholder="Classname" name="monclass2">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="tuesub2">
+					<br>
+					<input type="text" placeholder="Classname" name="tueclass2">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="wedsub2">
+					<br>
+					<input type="text" placeholder="Classname" name="wedclass2">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="thurssub2">
+					<br>
+					<input type="text" placeholder="Classname" name="thursclass2">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="frisub2">
+					<br>
+					<input type="text" placeholder="Classname" name="friclass2">
+				</td>
+			</tr>
+			<!--3 lecture-->
+			<tr>
+				<th name="3">3</th>
+				<td>
+					<input type="text" placeholder="Subject's name" name="monsub3">
+					<br>
+					<input type="text" placeholder="Classname" name="monclass3">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="tuesub3">
+					<br>
+					<input type="text" placeholder="Classname" name="tueclass3">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="wedsub3">
+					<br>
+					<input type="text" placeholder="Classname" name="wedclass3">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="thurssub3">
+					<br>
+					<input type="text" placeholder="Classname" name="thursclass3">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="frisub3">
+					<br>
+					<input type="text" placeholder="Classname" name="friclass3">
+				</td>
+			</tr>
+			<!--4 lecture-->
+			<tr> 
+				<th name="4">4</th>
+				<td>
+					<input type="text" placeholder="Subject's name" name="monsub4">
+					<br>
+					<input type="text" placeholder="Classname" name="monclass4">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="tuesub4">
+					<br>
+					<input type="text" placeholder="Classname" name="tueclass4">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="wedsub4">
+					<br>
+					<input type="text" placeholder="Classname" name="wedclass4">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="thurssub4">
+					<br>
+					<input type="text" placeholder="Classname" name="thursclass4">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="frisub4">
+					<br>
+					<input type="text" placeholder="Classname" name="friclass4">
+				</td>
+			</tr>
+			<!--5 lecture-->
+			<tr> 
+				<th name="5">5</th>
+				<td>
+					<input type="text" placeholder="Subject's name" name="monsub5">
+					<br>
+					<input type="text" placeholder="Classname" name="monclass5">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="tuesub5">
+					<br>
+					<input type="text" placeholder="Classname" name="tueclass5">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="wedsub5">
+					<br>
+					<input type="text" placeholder="Classname" name="wedclass5">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="thurssub5">
+					<br>
+					<input type="text" placeholder="Classname" name="thursclass5">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="frisub5">
+					<br>
+					<input type="text" placeholder="Classname" name="friclass5">
+				</td>
+			</tr>
+			<!--6 lecture-->
+			<tr>  
+				<th name="6">6</th>
+				<td>
+					<input type="text" placeholder="Subject's name" name="monsub6">
+					<br>
+					<input type="text" placeholder="Classname" name="monclass6">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="tuesub6">
+					<br>
+					<input type="text" placeholder="Classname" name="tueclass6">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="wedsub6">
+					<br>
+					<input type="text" placeholder="Classname" name="wedclass6">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="thurssub6">
+					<br>
+					<input type="text" placeholder="Classname" name="thursclass6">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="frisub6">
+					<br>
+					<input type="text" placeholder="Classname" name="friclass6">
+				</td>
+			</tr>
+			<!--7 lecture-->
+			<tr>
+				<th name="7">7</th>
+				<td>
+					<input type="text" placeholder="Subject's name" name="monsub7">
+					<br>
+					<input type="text" placeholder="Classname" name="monclass7">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="tuesub7">
+					<br>
+					<input type="text" placeholder="Classname" name="tueclass7">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="wedsub7">
+					<br>
+					<input type="text" placeholder="Classname" name="wedclass7">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="thurssub7">
+					<br>
+					<input type="text" placeholder="Classname" name="thursclass7">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="frisub7">
+					<br>
+					<input type="text" placeholder="Classname" name="friclass7">
+				</td>
+			 </tr>
+
+			<!--8 lecture-->
+			<tr> 
+				<th name="8">8</th>
+				<td>
+					<input type="text" placeholder="Subject's name" name="monsub8">
+					<br>
+					<input type="text" placeholder="Classname" name="monclass8">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="tuesub8">
+					<br>
+					<input type="text" placeholder="Classname" name="tueclass8">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="wedsub8">
+					<br>
+					<input type="text" placeholder="Classname" name="wedclass8">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="thurssub8">
+					<br>
+					<input type="text" placeholder="Classname" name="thursclass8">
+				</td>
+				<td>
+					<input type="text" placeholder="Subject's name" name="frisub8">
+					<br>
+					<input type="text" placeholder="Classname" name="friclass8">
+				</td>
+			 </tr>
+		<br> 	<input type="submit" value="Submit Time Table">
+			
+		</form>                        
 	          {{/if}}
 </template>
 <template name="departmentInformation">
