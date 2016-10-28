@@ -20,7 +20,7 @@ Meteor.publish('timetable', function(){
 
 
 Meteor.methods({
-	'insertStudent':function(naam,fname,mname,date,address,phone,email){
+	'insertStudent':function(naam,fname,mname,date,deptt,address,year,phone,email){
 			check(naam, String);
 			check(fname, String);
 			check(mname, String);
@@ -32,6 +32,8 @@ Meteor.methods({
 					 fathername: fname,
 					 mothername: mname,
 					 dob: date,
+					 department:deptt,
+					 year:year,
 					 address: address,
 					 phone: phone,
 					 emailId : email});
@@ -56,8 +58,8 @@ Meteor.methods({
 			return found;
 			
 			},
-		'insertSubject':function(deptt,sub,sem){
-			Subjects.insert({department:deptt,subjects:sub,semester:sem});
+		'insertSubject':function(deptt,subf,sem,subs,code){
+			Subjects.insert({department:deptt,fullname:subf,semester:sem,code:code,shortname:subs});
 			console.log("subjects inserted");
 			},
 		'retrieveTeacher':function(deptt){
@@ -65,17 +67,18 @@ Meteor.methods({
 			console.log("teacher's data found");
 			return found;
 			},
-	'insertTeacher':function(naam,qualification,date,address,phone,email,deptt){
+	'insertTeacher':function(naam,qualification,date,address,code,phone,email,deptt){
 			Teachers.insert({name: naam,
 					 qualification: qualification,
 					 dob: date,
+					 code:code,
 					 address: address,
 					 phone: phone,
 					 emailId : email,
 					 department:deptt});
 			console.log("data inserted of teacher");
 			},
-	'insertTimetable':function(deptt,/*teacher,mon,tue,wed,thurs,fri,*/monsub1,monsub2,monsub3,monsub4,monsub5,monsub6,monsub7,monsub8,
+	'insertTimetable':function(deptt,teacher,/*mon,tue,wed,thurs,fri,*/monsub1,monsub2,monsub3,monsub4,monsub5,monsub6,monsub7,monsub8,
 monclass1,monclass2,monclass3,monclass4,monclass5,monclass6,monclass7,monclass8,
 tuesub1,tuesub2,tuesub3,tuesub4,tuesub5,tuesub6,tuesub7,tuesub8,
 tueclass1,tueclass2,tueclass3,tueclass4,tueclass5,tueclass6,tueclass7,tueclass8,
@@ -87,7 +90,7 @@ frisub1,frisub2,frisub3,frisub4,frisub5,frisub6,frisub7,frisub8,
 friclass1,friclass2,friclass3,friclass4,friclass5,friclass6,friclass7,friclass8){
 			console.log("data reached");
 			TimeTable.insert({department:deptt,
-					//name:teacher,
+					name:teacher,
 					//mon:mon,
 					//tue:tue,
 					//wed:wed,

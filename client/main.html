@@ -58,7 +58,7 @@
                    		 <li>{{name}}</li>
                  	
 		 {{#each subject}}
-			<input type="checkbox"  name="{{subjects}}" >{{subjects}}
+			<input type="checkbox" name="{{shortname}}" class="sub" >{{shortname}}
                    	
                  	{{/each}}
 		
@@ -95,7 +95,17 @@
                    	
 	        </select>
 		</div>
-		<input type="text" name="subject">
+		<br><br>
+		<label>Subject's Full Name</label>
+		<input type="text" name="subjectfull">
+		<br>
+		<label>Subject's Short Name</label>
+		<input type="text" name="subjectshort">
+		<br>
+		<label>Subject's Code No.</label>
+		<input type="text" name="code">
+		<br>
+		<br>
 		<input type="submit" value="Insert">
 		</form>            
 	          {{/if}}
@@ -107,7 +117,7 @@
 		<form class="teacher">
 		 <div>
           		<label>List Of Departments</label>
-			<select name="deptt">
+			<select name="deptt" class="deptt">
 	            	<option>Departments</option>
 		    	<option>           </option>
 		    	<option>           </option>
@@ -115,7 +125,7 @@
                    		 <option value="{{name}}">{{name}}</option>
                  	{{/each}}
 	        </select>
-                </div> <input type="submit" value="Get Teacher's List">
+                </div> <input type="button" value="Get Teacher's List" class="get">
 		<br><br> <br>
 		<div>
           		<label>List Of Teachers</label>
@@ -128,9 +138,7 @@
                  	{{/each}}
 	        </select>
                 </div>
-			<!--<input type="submit" class="get" value="Get">-->
-		</form>
-		<form class="timetable">
+			
 
 			<br><br>
                 
@@ -412,6 +420,29 @@
 			<label> Mother's Name:</label>
 			<input type="text" name="mname">
 			<br>
+          		<div>
+          		<label>List Of Departments: </label>
+			<select name="dept">
+	            	<option>Departments</option>
+		    	<option>           </option>
+		    	<option>           </option>
+	        	 {{#each department}}
+                   		 <option value="{{name}}">{{name}}</option>
+                 	{{/each}}
+	       		 </select>
+                	</div>
+			<br>
+			<div>
+          		<label>List Of Semesters</label>
+			<select name="year">
+	            	<option>Year</option>
+		    	<option>           </option>
+		    	<option>           </option>
+			<option>1 Year</option>
+		    	<option>2 Year</option>
+			<option>3 Year</option>  	
+	       		 </select>
+			</div>
 			<br>
 			<label> Date of Birth:</label>
 			<input type="date" name="date">
@@ -460,6 +491,9 @@
 			<label>Email Id</label>
 			<input type="email" name="email">
 			<br>
+			<label>Unique Code:</label>
+			<input type="text" name="code">
+			<br>			
 			<label>Date of registration is:</label>
 			<label> {{date}},{{month}},{{year}} </label>
 			<br>
