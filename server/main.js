@@ -1,23 +1,28 @@
-//server
+//server file
 Meteor.publish('student', function(){
-    return Students.find();
+	return Students.find();
 });
 Meteor.publish('teacher', function(){
-    return Teachers.find();
+	return Teachers.find();
 });
 Meteor.publish('department', function(){
-    return Departments.find();
+	return Departments.find();
 });
 Meteor.publish('attendance', function(){
-    return Attendance.find();
+	return Attendance.find();
 });
 Meteor.publish('subject', function(){
-    return Subjects.find();
+	return Subjects.find();
 });
 Meteor.publish('timetable', function(){
-    return TimeTable.find();
+	return TimeTable.find();
 });
-
+Meteor.publish('user', function(){
+	return Users.find();
+});
+Meteor.publish('login', function(){
+	return Login.find();
+});
 
 Meteor.methods({
 	'insertStudent':function(naam,fname,mname,date,deptt,address,year,phone,email){
@@ -28,74 +33,97 @@ Meteor.methods({
 			check(address, String);
 			check(phone , String);
 			check(email, String);
-			Students.insert({ name: naam,
+			Students.insert({      name: naam,
 					 fathername: fname,
 					 mothername: mname,
-					 dob: date,
-					 department:deptt,
-					 year:year,
-					 address: address,
-					 phone: phone,
-					 emailId : email});
+					 	dob: date,
+					 department: deptt,
+					       year: year,
+					    address: address,
+					      phone: phone,
+					    emailId: email});
 			console.log("data inserted of student");
 			},
-		'insertDepartment':function(deptt,hod){
+
+	'insertDepartment':function(deptt,hod){
 			check(deptt, String);
 			check(hod, String);
-			Departments.insert({ name: deptt, hod: hod
-					});
+			Departments.insert({ name: deptt, 
+					      hod: hod
+					   });
 			console.log("department inserted");
 			},
 		
-		'checkTeacher':function(deptt){
-			var found= Teachers.find({department:deptt}).fetch();
+	'checkTeacher':function(deptt){
+			var found= Teachers.find({ department: deptt }).fetch();
 			console.log("teacher found");
 			return found;
 			},
-		'checkSubject':function(deptt,sem){
-			var found= Subjects.find({department:deptt,semester:sem}).fetch();
+
+	'checkSubject':function(deptt,sem){
+			var found= Subjects.find({ department:deptt,
+						     semester:sem}).fetch();
 			console.log("subject found");
 			return found;
-			
 			},
-		'insertSubject':function(deptt,subf,sem,subs,code){
-			Subjects.insert({department:deptt,fullname:subf,semester:sem,code:code,shortname:subs});
+
+	'insertSubject':function(deptt,subf,sem,subs,code){
+			Subjects.insert({     department: deptt,
+						fullname: subf,
+					        semester: sem,
+						    code: code,
+					       shortname: subs});
 			console.log("subjects inserted");
 			},
-		'retrieveTeacher':function(deptt){
-			var found= Teachers.find({department:deptt}).fetch();
+
+	'retrieveTeacher':function(deptt){
+			var found= Teachers.find({ department:deptt }).fetch();
 			console.log("teacher's data found");
 			return found;
 			},
-	'insertTeacher':function(naam,qualification,date,address,code,phone,email,deptt){
-			Teachers.insert({name: naam,
+	'logIn':function(email,password){
+			var found=Login.find({email:email,
+				    password:pass});
+                        if(found){
+			var alert= Login.find({email:email}).fetch();
+			return alert;	
+			}
+			else{
+			var info= alert("Enter a valid email address and password");
+			return info;}
+			},
+	'addTeacher':function(email,pass){
+			Users.insert({
+					 emailID: email,
+					password: pass});
+			console.log("teacher added in collection");
+			},
+	'insertTeacher':function(naam,qualification,date,address,code,phone,email,pass,deptt){
+			Teachers.insert({         name: naam,
 					 qualification: qualification,
-					 dob: date,
-					 code:code,
-					 address: address,
-					 phone: phone,
-					 emailId : email,
-					 department:deptt});
+					 	   dob: date,
+					          code: code,
+					       address: address,
+					         phone: phone,
+					      password: pass,
+					       emailId: email,
+					    department:deptt});
 			console.log("data inserted of teacher");
 			},
-	'insertTimetable':function(deptt,teacher,/*mon,tue,wed,thurs,fri,*/monsub1,monsub2,monsub3,monsub4,monsub5,monsub6,monsub7,monsub8,
-monclass1,monclass2,monclass3,monclass4,monclass5,monclass6,monclass7,monclass8,
-tuesub1,tuesub2,tuesub3,tuesub4,tuesub5,tuesub6,tuesub7,tuesub8,
-tueclass1,tueclass2,tueclass3,tueclass4,tueclass5,tueclass6,tueclass7,tueclass8,
-wedsub1,wedsub2,wedsub3,wedsub4,wedsub5,wedsub6,wedsub7,wedsub8,
-wedclass1,wedclass2,wedclass3,wedclass4,wedclass5,wedclass6,wedclass7,wedclass8,
-thurssub1,thurssub2,thurssub3,thurssub4,thurssub5,thurssub6,thurssub7,thurssub8,
-thursclass1,thursclass2,thursclass3,thursclass4,thursclass5,thursclass6,thursclass7,thursclass8,
-frisub1,frisub2,frisub3,frisub4,frisub5,frisub6,frisub7,frisub8,
-friclass1,friclass2,friclass3,friclass4,friclass5,friclass6,friclass7,friclass8){
+	'insertTimetable':function(deptt,teacher,
+		monsub1,monsub2,monsub3,monsub4,monsub5,monsub6,monsub7,monsub8,
+		monclass1,monclass2,monclass3,monclass4,monclass5,monclass6,monclass7,monclass8,
+		tuesub1,tuesub2,tuesub3,tuesub4,tuesub5,tuesub6,tuesub7,tuesub8,
+		tueclass1,tueclass2,tueclass3,tueclass4,tueclass5,tueclass6,tueclass7,tueclass8,
+		wedsub1,wedsub2,wedsub3,wedsub4,wedsub5,wedsub6,wedsub7,wedsub8,
+		wedclass1,wedclass2,wedclass3,wedclass4,wedclass5,wedclass6,wedclass7,wedclass8,
+		thurssub1,thurssub2,thurssub3,thurssub4,thurssub5,thurssub6,thurssub7,thurssub8,
+		thursclass1,thursclass2,thursclass3,thursclass4,thursclass5,thursclass6,thursclass7,thursclass8,
+		frisub1,frisub2,frisub3,frisub4,frisub5,frisub6,frisub7,frisub8,
+		friclass1,friclass2,friclass3,friclass4,friclass5,friclass6,friclass7,friclass8){
 			console.log("data reached");
 			TimeTable.insert({department:deptt,
 					name:teacher,
-					//mon:mon,
-					//tue:tue,
-					//wed:wed,
-					//thurs:thurs,
-					//fri:fri,
 					//mon sub
 					monsub1:monsub1,
 					monsub2:monsub2,
@@ -189,10 +217,12 @@ friclass1,friclass2,friclass3,friclass4,friclass5,friclass6,friclass7,friclass8)
 					}),
 			console.log("hogya g submit");
 			},	
-		'takeAttendance':function(present,absent){
-			Attendance.insert({present:present, absent:absent});
+
+	'takeAttendance':function(present,absent){
+			Attendance.insert({ present:present, 
+					     absent:absent });
 			console.log(Attendance.find().fetch());
-			}	
+			}
 });
 
 

@@ -3,97 +3,131 @@
 </head>
 
 <body>
-  {{> loginButtons}}
+  <div class="logo" img src="/56-512.png" style="width=100%">
+  <h1 id="haaazir"> HaaaZir </h1></div>
+  {{> login}}
 	<br>
 	<br>
   {{> display}}
 </body>
 
+<template name="login">
+ <form name="login">
+  <input type="email" name="email" placeholder="Email address">
+  <input type="password" name="pass" placeholder="Password">
+  <input type="submit">
+  {{ alert}}
+ </form>
+</template>
 
 <template name="display">
   {{#if currentUser}}
-	<a href="department"> <input type="button" value="Add Department" name="department"></a>
-	<a href="student"> <input type="button" value="Add Student" name="student"></a>
-	<a href="teacher"> <input type="button" value="Add Teacher" name="teacher"></a>
-	<a href="attendance"> <input type="button" value="Take Attendance" name="attendance"></a>
-	<a href="allocatesubject"> <input type="button" value="Assign Subjects" name="allocatesubject"></a>
-	<a href="timetable"> <input type="button" value="Insert Time Table" name="inserttimetable"></a>
-	<a href="insertsubject"> <input type="button" value="Add Subjects" name="insertsubjects"></a>
+	     <a href="department"> <input type="button" value="Add Department" name="department" class="btn btn-primary btnss"></a>
+	     <a href="student"> <input type="button" value="Add Student" name="student" class="btn btn-primary btnss"></a>
+	     <a href="teacher"> <input type="button" value="Add Teacher" name="teacher" class="btn btn-primary btnss"></a>
+ 	     <a href="attendance"> <input type="button" value="Take Attendance" name="attendance" class="btn btn-primary btnss"></a>
+	     <a href="allocatesubject"> <input type="button" value="Assign Subjects" name="allocatesubject" class="btn btn-primary btnss">
+             </a>
+	     <a href="timetable"> <input type="button" value="Insert Time Table" name="inserttimetable" class="btn btn-primary btnss"></a>
+	     <a href="insertsubject"> <input type="button" value="Add Subjects" name="insertsubjects" class="btn btn-primary btnss"></a>
    {{else}}
     <p>You must be logged-in to see this content.</p>
   {{/if}}
 </template>
+
 <template name="allocateSubject">
-{{#if currentUser}}
+ {{#if currentUser}}
 		<br> <br>
-		<form class="sub"> <div>
-          		<label>List Of Departments</label>
+	<form class="sub">
+		<div>
+          		<label id="white">List Of Departments</label>
 			<select name="dept">
-	            	<option>Departments</option>
-		    	<option>           </option>
-		    	<option>           </option>
-	        	 {{#each department}}
-                   		 <option value="{{name}}">{{name}}</option>
-                 	{{/each}}
-	        </select>
+	            	  <option>Departments</option>
+		    	  <option>           </option>
+		    	  <option>           </option>
+	        	  {{#each department}}
+                   	    <option value="{{name}}">{{name}}</option>
+                 	  {{/each}}
+	       		</select>
                 </div> 
 		<div>
-          		<label>List Of Semesters</label>
+          		<label id="white">List Of Semesters</label>
 			<select name="sem">
 	            	<option>Semesters</option>
-		    	<option>           </option>
-		    	<option>           </option>
-			<option>1 Semester</option>
-		    	<option>2 Semester</option>
-			<option>3 Semester</option>
-		    	<option>4 Semester</option>
-	        	<option>5 Semester</option>
-		    	<option>6 Semester</option> 
-                   	
-	        </select>
+		    	  <option>          </option>
+		    	  <option>          </option>
+			  <option>1 Semester</option>
+		    	  <option>2 Semester</option>
+			  <option>3 Semester</option>
+		    	  <option>4 Semester</option>
+	        	  <option>5 Semester</option>
+		    	  <option>6 Semester</option> 
+                   	</select>
 		</div>
 		<input type="submit" value="Get Teacher's List with Subject's List">
-		 {{#each teacher}}
-			<br><br>
-                   		 <li>{{name}}</li>
-                 	
-		 {{#each subject}}
-			<input type="checkbox" name="{{shortname}}" class="sub" >{{shortname}}
-                   	
-                 	{{/each}}
-		
+		{{#each teacher}}
+		  <br><br>
+                  <li id="white" name="teacher">{{name}}</li>
+             	  {{#each subject}}
+		    <input type="checkbox" name="subject" class="sub" >{{shortname}}
+               	  {{/each}}
 		{{/each}}
+		<br> <br> <input type="button" value="Submit" class="su">
 		</form>            
-	          {{/if}}
+  {{/if}}
 </template>
+
+<template name="retrieveInformation">
+  {{#if currentUser}}
+       <form class="toggle">
+            <ul>
+	        {{#each databaseCall}}
+	        <li id="white">{{name}}
+	           <p>{{>toggle}}</p>
+	        </li>
+	        {{/each}}
+             </ul>
+             <input type="submit" value="Submit">
+        </form>
+  {{/if}}
+</template>
+
+<template name="toggle">
+  <!-- Rounded switch -->
+  <label class="switch">
+     <input type="checkbox" name="toggle" value="{{name}}" class="check">
+     <div class="slider round" > </div>
+  </label>
+</template>
+
 <template name="insertSubject">
-{{#if currentUser}}
+  {{#if currentUser}}
 		<br> <br>
-		<form class="sub"> <div>
+	<form class="sub"> 
+		<div>
           		<label>List Of Departments</label>
 			<select name="dept">
-	            	<option>Departments</option>
-		    	<option>           </option>
-		    	<option>           </option>
-	        	 {{#each department}}
-                   		 <option value="{{name}}">{{name}}</option>
-                 	{{/each}}
-	        </select>
+	            	  <option>Departments</option>
+		    	  <option>           </option>
+		    	  <option>           </option>
+	        	  {{#each department}}
+                   	    <option value="{{name}}">{{name}}</option>
+                 	  {{/each}}
+	                </select>
                 </div> 
 		<div>
           		<label>List Of Semesters</label>
 			<select name="sem">
-	            	<option>Semesters</option>
-		    	<option>           </option>
-		    	<option>           </option>
-			<option>1 Semester</option>
-		    	<option>2 Semester</option>
-			<option>3 Semester</option>
-		    	<option>4 Semester</option>
-	        	<option>5 Semester</option>
-		    	<option>6 Semester</option> 
-                   	
-	        </select>
+	            	 <option>Semesters</option>
+		    	 <option>          </option>
+		    	 <option>          </option>
+			 <option>1 Semester</option>
+		    	 <option>2 Semester</option>
+			 <option>3 Semester</option>
+		    	 <option>4 Semester</option>
+	        	 <option>5 Semester</option>
+		    	 <option>6 Semester</option> 
+                       </select>
 		</div>
 		<br><br>
 		<label>Subject's Full Name</label>
@@ -107,52 +141,49 @@
 		<br>
 		<br>
 		<input type="submit" value="Insert">
-		</form>            
-	          {{/if}}
+	</form>            
+  {{/if}}
 </template>
 
 <template name="timeTable">
-{{#if currentUser}}
-		<br> <br>
-		<form class="teacher">
+  {{#if currentUser}}
+	<br> <br>
+	<form class="teacher">
 		 <div>
-          		<label>List Of Departments</label>
-			<select name="deptt" class="deptt">
-	            	<option>Departments</option>
-		    	<option>           </option>
-		    	<option>           </option>
+          		<label id="listt">List Of Departments</label>
+			<select name="deptt" class="deptt btn btn-primary dropdown-toggle">
+	            	 <option>Departments</option>
+		    	 <option>           </option>
+		    	 <option>           </option>
 	        	 {{#each department}}
-                   		 <option value="{{name}}">{{name}}</option>
-                 	{{/each}}
-	        </select>
-                </div> <input type="button" value="Get Teacher's List" class="get">
+                   	    <option value="{{name}}">{{name}}</option>
+                 	 {{/each}}
+	               </select>
+                </div> <input type="button" value="Get Teacher's List" class="get btn btn-primary">
 		<br><br> <br>
 		<div>
-          		<label>List Of Teachers</label>
-			<select name="teacher">
+          		<label id="teachers">List Of Teachers</label>
+			<select name="teacher" class="btn btn-primary dropdown-toggle">
 	            	<option>Teachers</option>
-		    	<option>           </option>
-		    	<option>           </option>
-	        	 {{#each teacher}}
-                   		 <option value="{{name}}">{{name}}</option>
+		    	<option>        </option>
+		    	<option>        </option>
+	        	{{#each teacher}}
+                   	   <option value="{{name}}">{{name}}</option>
                  	{{/each}}
 	        </select>
                 </div>
-			
-
-			<br><br>
-                
-                 	<tr>
-				<th name="days"><pre><h2>  Days</h2></pre></th>
-				<th name="mon"><pre><h2>  Monday</h2></pre></th>
-				<th name="tue"><pre><h2> Tuesday</h2></pre></th>
-				<th name="wed"><pre><h2>   Wednesday</h2></pre></th>
-				<th name="thurs"><pre><h2>  Thursday</h2></pre></th>
-				<th name="fri"><pre><h2>  Friday</h2></pre></th>
-			</tr>
-			<!--1 lecture-->
-			<tr>
-				<th name="1">1</th>
+		<br><br>
+                  <tr>
+		    <th name="days" id="monday"><h2>  Days</h2></th>
+	            <th name="mon" id="monday"><h2>  Monday</h2></th>
+		    <th name="tue" id="monday"><h2> Tuesday</h2></th>
+	            <th name="wed" id="monday"><h2>   Wednesday</h2></th>
+		    <th name="thurs" id="monday"><h2>  Thursday</h2></th>
+		    <th name="fri" id="monday"><h2>  Friday</h2></th>
+		  </tr>
+		<!--1 lecture-->
+		  <tr>
+				<th name="1" id="monday">1</th>
 				<td>
 					<input type="text" placeholder="Subject's name" name="monsub1">
 					<br>
@@ -181,7 +212,7 @@
 			</tr>
 			<!--2 lecture-->
 			<tr>
-				<th name="2">2</th>
+				<th name="2" id="monday">2</th>
 				<td>
 					<input type="text" placeholder="Subject's name" name="monsub2">
 					<br>
@@ -210,7 +241,7 @@
 			</tr>
 			<!--3 lecture-->
 			<tr>
-				<th name="3">3</th>
+				<th name="3" id="monday">3</th>
 				<td>
 					<input type="text" placeholder="Subject's name" name="monsub3">
 					<br>
@@ -239,7 +270,7 @@
 			</tr>
 			<!--4 lecture-->
 			<tr> 
-				<th name="4">4</th>
+				<th name="4" id="monday">4</th>
 				<td>
 					<input type="text" placeholder="Subject's name" name="monsub4">
 					<br>
@@ -268,7 +299,7 @@
 			</tr>
 			<!--5 lecture-->
 			<tr> 
-				<th name="5">5</th>
+				<th name="5" id="monday">5</th>
 				<td>
 					<input type="text" placeholder="Subject's name" name="monsub5">
 					<br>
@@ -297,7 +328,7 @@
 			</tr>
 			<!--6 lecture-->
 			<tr>  
-				<th name="6">6</th>
+				<th name="6" id="monday">6</th>
 				<td>
 					<input type="text" placeholder="Subject's name" name="monsub6">
 					<br>
@@ -326,7 +357,7 @@
 			</tr>
 			<!--7 lecture-->
 			<tr>
-				<th name="7">7</th>
+				<th name="7" id="monday">7</th>
 				<td>
 					<input type="text" placeholder="Subject's name" name="monsub7">
 					<br>
@@ -356,7 +387,7 @@
 
 			<!--8 lecture-->
 			<tr> 
-				<th name="8">8</th>
+				<th name="8" id="monday">8</th>
 				<td>
 					<input type="text" placeholder="Subject's name" name="monsub8">
 					<br>
@@ -383,113 +414,115 @@
 					<input type="text" placeholder="Classname" name="friclass8">
 				</td>
 			 </tr>
-		<br> 	<input type="submit" value="Submit Time Table">
+		<br> 	<input type="submit" value="Submit Time Table" id="time" class="btn btn-success btn-lg">
 			
-		</form>                        
-	          {{/if}}
+	</form>                        
+  {{/if}}
 </template>
+
 <template name="departmentInformation">
-{{#if currentUser}}
+  {{#if currentUser}}
              <form class="deptt">
 		      <fieldset>
-			<legend> Department's Information</legend>
-			<br>
-		          <label>Department's Name</label>
-			  <input type="text" name="deptt" class="form-control amp" placeholder="Department's Name">
+			<legend id="info"> Department's Information</legend>
+			<br><div id="boxxx">
+		          <label id="name">Department's Name</label>
+			  <input type="text" name="deptt" id="depp" placeholder="Department's Name">
 			<br>  
 			  <label>Head Of Department</label>
-			  <input type="text" name="hod" class="form-control amp" placeholder="HOD">
+			  <input type="text" name="hod" id="hod" class="form-control amp" placeholder="HOD">
 		      	<br>
-		      <input type="submit" value="Add Department"> 
-		</fieldset>
-	          </form>
-{{/if}}
+		      <input type="submit" value="Add Department" class="btn btn-success btn-lg" id="deppt"> 
+		    </div> </fieldset>
+	      </form>
+  {{/if}}
 </template>
 
 <template name="student">
 {{#if currentUser}}
 	<form class="btn1">
-		<fieldset>
-			<legend><h2> Student's Information Form </h2></legend>
+			<legend id="info"> Student's Information Form</legend><div id="boxs">
 			<label> Student's Name:</label>
-			<input type="text" name="nm">
+			<input type="text" name="nm" id="name">
 			<br>
 			<label> Father's Name:</label>
-			<input type="text" name="fname">
+			<input type="text" name="fname" id="name">
 			<br>
 			<label> Mother's Name:</label>
-			<input type="text" name="mname">
+			<input type="text" name="mname" id="name">
 			<br>
           		<div>
-          		<label>List Of Departments: </label>
-			<select name="dept">
-	            	<option>Departments</option>
-		    	<option>           </option>
-		    	<option>           </option>
-	        	 {{#each department}}
-                   		 <option value="{{name}}">{{name}}</option>
-                 	{{/each}}
-	       		 </select>
+          		  <label>List Of Departments: </label>
+			  <select name="dept">
+	            	    <option>Departments</option>
+		    	    <option>           </option>
+		    	    <option>           </option>
+	        	    {{#each department}}
+                   	       <option value="{{name}}">{{name}}</option>
+                 	    {{/each}}
+	       		  </select>
                 	</div>
 			<br>
 			<div>
-          		<label>List Of Semesters</label>
-			<select name="year">
-	            	<option>Year</option>
-		    	<option>           </option>
-		    	<option>           </option>
-			<option>1 Year</option>
-		    	<option>2 Year</option>
-			<option>3 Year</option>  	
-	       		 </select>
+          		  <label>List Of Years</label>
+			  <select name="year">
+	            	    <option>Year  </option>
+		    	    <option>      </option>
+		    	    <option>      </option>
+			    <option>1 Year</option>
+		    	    <option>2 Year</option>
+			    <option>3 Year</option>  	
+	       		  </select>
 			</div>
 			<br>
 			<label> Date of Birth:</label>
 			<input type="date" name="date">
 			<br>
 			<label>Address</label>
-			<textarea name="add" rows="2" cols="60"> </textarea>
+			<textarea name="add" rows="2" cols="38"> </textarea>
 			<br>
 			<label>Phone No.</label>
-			<input type="text" name="phn">
+			<input type="text" name="phn" id="name">
 			<br>
 			<label>Email Id</label>
-			<input type="email" name="email">
+			<input type="email" name="email" id="name">
 			<br>
-		</fieldset>
-		<input type="submit" value="Submit">
+		<input type="submit" value="Submit" class="btn btn-success btn-lg">
+		</div>
 	</form>
-{{/if}}
+  {{/if}}
 </template>
 
 <template name="teacher">
-	{{#if currentUser}}
+  {{#if currentUser}}
 	<form class="btn2">
-		<fieldset>
-			<legend><h2> Teacher's Information Form </h2></legend>
+			<legend	 id="info"> Teacher's Information Form</legend><div id="boxx">
 			<label> Teacher's Name:</label>
-			<input type="text" name="nm">
+			<input type="text" name="nm" id="name">
 			<br>
 			<label>Qualification:</label>
 			<select name="qualification">
-			    <option value="btech">Btech</option>
-			    <option value="diploma">Diploma</option>
-			    <option value="bca">BCA</option>
-			    <option value="mca">MCA</option>
+			  <option value="btech">   Btech   </option>
+			  <option value="diploma"> Diploma </option>
+			  <option value="bca">     BCA     </option>
+			  <option value="mca">     MCA     </option>
 			</select>
 			<br>
 			<br>
 			<label> Date of Birth:</label>
-			<input type="date" name="date">
+			<input type="date" name="date" id="name">
 			<br>
 			<label>Address</label>
-			<textarea name="add" rows="2" cols="60"> </textarea>
+			<textarea name="add" rows="2" cols="60" id="addr"> </textarea>
 			<br>
 			<label>Phone No.</label>
-			<input type="text" name="phn">
+			<input type="text" name="phn" id="name">
 			<br>
 			<label>Email Id</label>
-			<input type="email" name="email">
+			<input type="email" name="email" id="name">
+			<br>
+			<label>Password</label>
+			<input type="password" name="pass">
 			<br>
 			<label>Unique Code:</label>
 			<input type="text" name="code">
@@ -498,61 +531,19 @@
 			<label> {{date}},{{month}},{{year}} </label>
 			<br>
 			<div>
-          		<label>List Of Departments</label>
-			<select name="dept">
-	            	<option>Departments</option>
-		    	<option>           </option>
-		    	<option>           </option>
-	        	 {{#each department}}
-                   		 <option value="{{name}}">{{name}}</option>
-                 	{{/each}}
-	        </select>
-                </div>
-		</fieldset>
-		<input type="submit" value="Submit">
+		  		<label>List Of Departments</label>
+				<select name="dept">
+			    	  <option>Departments</option>
+			    	  <option>           </option>
+			    	  <option>           </option>
+				  {{#each department}}
+		           	     <option value="{{name}}">{{name}}</option>
+		         	  {{/each}}
+		       	        </select>
+                	</div>
+		<input type="submit" value="Submit" class="btn btn-success btn-lg" id="name">
+		</div>
 	</form>
-{{/if}}
+  {{/if}}
 </template>
-
-<template name="retrieveInformation">
-	{{#if currentUser}}
-          <form class="toggle">
-                <ul>
-	           {{#each databaseCall}}
-	             <li>{{name}}
-	                <p>{{>toggle}}</p>
-	             </li>
-	           {{/each}}
-                </ul>
-                <input type="submit" value="Submit">
-          </form>
-	{{/if}}
-</template>
-<template name="toggle">
-     <!-- Rounded switch -->
-     <label class="switch">
-          <input type="checkbox" name="toggle" value="{{name}}" class="check">
-          <div class="slider round" > </div>
-     </label>
-</template>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
