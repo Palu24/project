@@ -25,6 +25,14 @@ Meteor.publish('login', function(){
 });
 
 Meteor.methods({
+	/*'insert':function(){
+	Login.insert({
+         email:"dclerk@college.com",
+	password:"college",
+		uid:2
+		});
+console.log("inserted");
+},*/
 	'insertStudent':function(naam,fname,mname,date,deptt,address,year,phone,email){
 			check(naam, String);
 			check(fname, String);
@@ -75,22 +83,45 @@ Meteor.methods({
 					       shortname: subs});
 			console.log("subjects inserted");
 			},
-
+		'inFo':function(email){
+			var teacher=Teachers.find({emailId:email}).fetch();
+			return teacher;
+			console.log(teacher);
+		},
+	'getData':function(deptt,year){
+			var data=Students.find({
+					 department: deptt,
+					       year: year}).fetch();
+			console.log(deptt);
+			console.log(year);
+			console.log(data);
+			return data;
+			},
+	'getdata':function(deptt,year){
+			var data=Students.find({
+					 department: deptt,
+					       year: year}).count();
+			console.log(deptt);
+			console.log(year);
+			console.log(data);
+			return data;
+			},
 	'retrieveTeacher':function(deptt){
 			var found= Teachers.find({ department:deptt }).fetch();
 			console.log("teacher's data found");
 			return found;
 			},
 	'logIn':function(email,password){
-			var found=Login.find({email:email,
-				    password:pass});
-                        if(found){
-			var alert= Login.find({email:email}).fetch();
-			return alert;	
-			}
-			else{
+			var found= Login.find({email:email,
+				    password:password}).fetch();
+			
+                        
+			console.log(found);
+                        return found;	
+			
+			/*else{
 			var info= alert("Enter a valid email address and password");
-			return info;}
+			return info;}*/
 			},
 	'addTeacher':function(email,pass){
 			Users.insert({
@@ -108,6 +139,9 @@ Meteor.methods({
 					      password: pass,
 					       emailId: email,
 					    department:deptt});
+			Login.insert({email:email,
+				    password:pass,
+					uid:3});
 			console.log("data inserted of teacher");
 			},
 	'insertTimetable':function(deptt,teacher,
@@ -217,7 +251,15 @@ Meteor.methods({
 					}),
 			console.log("hogya g submit");
 			},	
-
+	'infoTable':function(email){
+			var tt=TimeTable.find({email:email}).fetch();
+			console.log(tt);
+			return tt;
+		},
+	'getdataofTeacher':function(teacher){
+			var infot= Teachers.find({name:teacher}).fetch();
+			return infot;
+		},
 	'takeAttendance':function(present,absent){
 			Attendance.insert({ present:present, 
 					     absent:absent });

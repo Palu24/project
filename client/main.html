@@ -4,32 +4,36 @@
 
 <body>
   <div class="logo" img src="/56-512.png" style="width=100%">
-  <h1 id="haaazir"> HaaaZir </h1></div>
-  {{> login}}
+<h1 id="haaazir"> HaaaZir </h1></div>
 	<br>
 	<br>
   {{> display}}
-</body>
 
+</body>
 <template name="login">
- <form name="login">
-  <input type="email" name="email" placeholder="Email address">
-  <input type="password" name="pass" placeholder="Password">
-  <input type="submit">
-  {{ alert}}
+	{{#if currentUser}}
+ <form class="form" method="POST">
+  <input type="email" name="email" placeholder="Email address" value=" ">
+  <input type="password" name="pass" placeholder="Password" value="">
+  <input type="submit" value="Submit">
  </form>
+{{#each login}}
+		<h1>{{uid}}</h1>     
+{{/each}}
+	{{/if}}
 </template>
 
 <template name="display">
   {{#if currentUser}}
 	     <a href="department"> <input type="button" value="Add Department" name="department" class="btn btn-primary btnss"></a>
 	     <a href="student"> <input type="button" value="Add Student" name="student" class="btn btn-primary btnss"></a>
-	     <a href="teacher"> <input type="button" value="Add Teacher" name="teacher" class="btn btn-primary btnss"></a>
- 	     <a href="attendance"> <input type="button" value="Take Attendance" name="attendance" class="btn btn-primary btnss"></a>
+	     <a href="addteacher"> <input type="button" value="Add Teacher" name="teacher" class="btn btn-primary btnss"></a>
+ 	     <a href="teacher"> <input type="button" value="Take Attendance" name="attendance" class="btn btn-primary btnss"></a>
 	     <a href="allocatesubject"> <input type="button" value="Assign Subjects" name="allocatesubject" class="btn btn-primary btnss">
              </a>
 	     <a href="timetable"> <input type="button" value="Insert Time Table" name="inserttimetable" class="btn btn-primary btnss"></a>
 	     <a href="insertsubject"> <input type="button" value="Add Subjects" name="insertsubjects" class="btn btn-primary btnss"></a>
+	    <a href="rollno"> <input type="button" value="Insert Roll No." name="insertrollno" class="btn btn-primary btnss"></a>
    {{else}}
     <p>You must be logged-in to see this content.</p>
   {{/if}}
@@ -67,21 +71,105 @@
 		<input type="submit" value="Get Teacher's List with Subject's List">
 		{{#each teacher}}
 		  <br><br>
-                  <li id="white" name="teacher">{{name}}</li>
+                  <li id="white" name="teacher" value="{{name}}">{{name}}</li>
              	  {{#each subject}}
-		    <input type="checkbox" name="subject" class="sub" >{{shortname}}
+		    <input type="checkbox" name="subject" class="sub" value="{{shortname}}" >{{checked}} {{shortname}}
                	  {{/each}}
 		{{/each}}
 		<br> <br> <input type="button" value="Submit" class="su">
 		</form>            
   {{/if}}
 </template>
+<template name="riInformation">
+	 {{#if currentUser}}
+	<form class="info">
+		<input type="submit" value="Information about the teacher">
+			 <table style="width:70%">
+  <tr>
+    <th>Name</th>
+    <th>Email Id</th>
+    <th>Phone No.</th>
+    <th>Code of the teacher</th>
+<th>Today's Date</th>
+  </tr>
+  <tr>
+	{{#each information}}
+    <td>{{name}}</td>
+    <td>{{emailId}}</td>
+    <td>{{phone}}</td>
+    <td>{{code}}</td>	
+	{{/each}}
+	<td>{{date}}/{{month}}/{{year}}</td>
+  </tr>
+ </table> 
+	</form>
+	{{/if}}	
+</template>
 
-<template name="retrieveInformation">
-  {{#if currentUser}}
+<template name="rollno">
+<br> <br>
+	<form class="sub"> 
+		<div>
+          		<label>List Of Departments</label>
+			<select name="dept">
+	            	  <option>Departments</option>
+		    	  <option>           </option>
+		    	  <option>           </option>
+	        	  {{#each department}}
+                   	    <option value="{{name}}">{{name}}</option>
+                 	  {{/each}}
+	                </select>
+                </div> 
+		<div>
+          		  <label>List Of Years</label>
+			  <select name="year">
+	            	    <option>Year  </option>
+		    	    <option>      </option>
+		    	    <option>      </option>
+			    <option>1 Year</option>
+		    	    <option>2 Year</option>
+			    <option>3 Year</option>  	
+	       		  </select>
+			</div>
+		<label>Enter the starting roll no.</label>
+		<input type="text" name="roll" placeholder="starting roll no.">
+		<input type="submit" value="Submit">
+		</form>
+		<br><br>
+</template>
+
+<template name="riAttendance">
+<br> <br>
+	<form class="sub"> 
+		<div>
+          		<label>List Of Departments</label>
+			<select name="dept">
+	            	  <option>Departments</option>
+		    	  <option>           </option>
+		    	  <option>           </option>
+	        	  {{#each department}}
+                   	    <option value="{{name}}">{{name}}</option>
+                 	  {{/each}}
+	                </select>
+                </div> 
+		<div>
+          		  <label>List Of Years</label>
+			  <select name="year">
+	            	    <option>Year  </option>
+		    	    <option>      </option>
+		    	    <option>      </option>
+			    <option>1 Year</option>
+		    	    <option>2 Year</option>
+			    <option>3 Year</option>  	
+	       		  </select>
+			</div>
+		<input type="submit" value="Submit">
+		</form>
+		<br><br>
        <form class="toggle">
+	<p>By deafult, all students are present. Please, list the absent students by checking the toggle buttons</p>
             <ul>
-	        {{#each databaseCall}}
+	        {{#each info}}
 	        <li id="white">{{name}}
 	           <p>{{>toggle}}</p>
 	        </li>
@@ -89,13 +177,529 @@
              </ul>
              <input type="submit" value="Submit">
         </form>
+</template>
+
+<template name="retrieveInformation">
+  {{#if currentUser}}
+
+		<a href="/information"> <input type="button" value="View Information" name="information" class="btn btn-primary btnss"></a>
+	     <a href="/viewtimetable"> <input type="button" value="View Time Table" name="timetable" class="btn btn-primary btnss"></a>
+		 <a href="/attendance"> <input type="button" value="Mark Attendance" name="attendance" class="btn btn-primary btnss"></a>	
+	
   {{/if}}
+</template>
+
+<template name="riTimetable">
+{{#if currentUser}}
+    <a href="/edittimetable"> <input type="button" value="Edit Time Table" name="edit" class="btn btn-primary btnss"></a>
+	<br> <br>
+	<br><br>
+                  <tr>
+		    <th name="days" id="monday"><h2>  Days</h2></th>
+	            <th name="mon" id="monday"><h2>  Monday</h2></th>
+		    <th name="tue" id="monday"><h2> Tuesday</h2></th>
+	            <th name="wed" id="monday"><h2>   Wednesday</h2></th>
+		    <th name="thurs" id="monday"><h2>  Thursday</h2></th>
+		    <th name="fri" id="monday"><h2>  Friday</h2></th>
+		  </tr>
+		{{#each infott}}
+		<!--1 lecture-->
+		  <tr>
+				<th name="1" id="monday">1</th>
+				<td>
+					{{monsub1}}
+					<br>
+					{{monclass1}}
+				</td>
+				<td>
+					{{tuesub1}}
+					<br>
+					{{tueclass1}}
+				</td>
+				<td>
+					{{wedsub1}}
+					<br>
+					{{wedclass1}}
+				</td>
+				<td>
+					{{thurssub1}}
+					<br>
+					{{thursclass1}}
+				</td>
+				<td>
+					{{frisub1}}
+					<br>
+					{{friclass1}}
+				</td>
+			</tr>
+			<!--2 lecture-->
+			<tr>
+				<th name="2" id="monday">2</th>
+				<td>
+					{{monsub2}}
+					<br>
+					{{monclass2}}
+				</td>
+				<td>
+					{{tuesub2}}
+					<br>
+					{{tueclass2}}
+				</td>
+				<td>
+					{{wedsub2}}
+					<br>
+					{{wedclass2}}
+				</td>
+				<td>
+					{{thurssub2}}
+					<br>
+					{{thursclass2}}
+				</td>
+				<td>
+					{{frisub2}}
+					<br>
+					{{friclass2}}
+				</td>
+			</tr>
+			<!--3 lecture-->
+			<tr>
+				<th name="3" id="monday">3</th>
+				<td>
+					{{monsub3}}
+					<br>
+					{{monclass3}}
+				</td>
+				<td>
+					{{tuesub3}}
+					<br>
+					{{tueclass3}}
+				</td>
+				<td>
+					{{wedsub3}}
+					<br>
+					{{wedclass3}}
+				</td>
+				<td>
+					{{thurssub3}}
+					<br>
+					{{thursclass3}}
+				</td>
+				<td>
+					{{frisub3}}
+					<br>
+					{{friclass3}}
+				</td>
+			</tr>
+			<!--4 lecture-->
+			<tr> 
+				<th name="4" id="monday">4</th>
+				<td>
+					{{monsub4}}
+					<br>
+					{{monclass4}}
+				</td>
+				<td>
+					{{tuesub4}}
+					<br>
+					{{tueclass4}}
+				</td>
+				<td>
+					{{wedsub4}}
+					<br>
+					{{wedclass4}}
+				</td>
+				<td>
+					{{thurssub4}}
+					<br>
+					{{thursclass4}}
+				</td>
+				<td>
+					{{frisub4}}
+					<br>
+					{{friclass4}}
+				</td>
+			</tr>
+			<!--5 lecture-->
+			<tr> 
+				<th name="5" id="monday">5</th>
+				<td>
+					{{monsub5}}
+					<br>
+					{{monclass5}}
+				</td>
+				<td>
+					{{tuesub5}}
+					<br>
+					{{tueclass5}}
+				</td>
+				<td>
+					{{wedsub5}}
+					<br>
+					{{wedclass5}}
+				</td>
+				<td>
+					{{thurssub5}}
+					<br>
+					{{thursclass5}}
+				</td>
+				<td>
+					{{frisub5}}
+					<br>
+					{{friclass5}}
+				</td>
+			</tr>
+			<!--6 lecture-->
+			<tr>  
+				<th name="6" id="monday">6</th>
+				<td>
+					{{monsub6}}
+					<br>
+					{{monclass6}}
+				</td>
+				<td>
+					{{tuesub6}}
+					<br>
+					{{tueclass6}}
+				</td>
+				<td>
+					{{wedsub6}}
+					<br>
+					{{wedclass6}}
+				</td>
+				<td>
+					{{thurssub6}}
+					<br>
+					{{thursclass6}}
+				</td>
+				<td>
+					{{frisub6}}
+					<br>
+				        {{friclass6}}
+				</td>
+			</tr>
+			<!--7 lecture-->
+			<tr>
+				<th name="7" id="monday">7</th>
+				<td>
+					{{monsub7}}
+					<br>
+					{{monclass7}}
+				</td>
+				<td>
+					{{tuesub7}}
+					<br>
+					{{tueclass7}}
+				</td>
+				<td>
+					{{wedsub7}}
+					<br>
+					{{wedclass7}}
+				</td>
+				<td>
+					{{thurssub7}}
+					<br>
+					{{thursclass7}}
+				</td>
+				<td>
+					{{frisub7}}
+					<br>
+					{{friclass7}}
+				</td>
+			 </tr>
+
+			<!--8 lecture-->
+			<tr> 
+				<th name="8" id="monday">8</th>
+				<td>
+					{{monsub8}}
+					<br>
+					{{monclass8}}
+				</td>
+				<td>
+					{{tuesub8}}
+					<br>
+					{{tueclass8}}
+				</td>
+				<td>
+					{{wedsub8}}
+					<br>
+					{{wedclass8}}
+				</td>
+				<td>
+					{{thurssub8}}
+					<br>
+					{{thursclass8}}
+				</td>
+				<td>
+					{{frisub8}}
+					<br>
+					{{friclass8}}
+				</td>
+			 </tr>
+			{{/each}}
+		<br> 	
+{{/if}}
+</template>
+	
+<template name="editTable">
+	{{#if currentUser}}
+	<br> <br>
+	<form class="teacher">
+	<input type="button" value="Click here to display the Time table" name="edit" class="edittt">
+	<br><br>
+                  <tr>
+		    <th name="days" id="monday"><h2>  Days</h2></th>
+	            <th name="mon" id="monday"><h2>  Monday</h2></th>
+		    <th name="tue" id="monday"><h2> Tuesday</h2></th>
+	            <th name="wed" id="monday"><h2>   Wednesday</h2></th>
+		    <th name="thurs" id="monday"><h2>  Thursday</h2></th>
+		    <th name="fri" id="monday"><h2>  Friday</h2></th>
+		  </tr>
+		{{#each infott}}
+		<!--1 lecture-->
+		  <tr>
+				<th name="1" id="monday">1</th>
+				<td>
+					<input type="text" value="{{monsub1}}" name="monsub1">
+					<br>
+					<input type="text" value="{{monclass1}}" name="monclass1">
+				</td>
+				<td>
+					<input type="text"  value="{{tuesub1}}" name="tuesub1">
+					<br>
+					<input type="text" value="{{tueclass1}}" name="tueclass1">
+				</td>
+				<td>
+					<input type="text"  value="{{wedsub1}}" name="wedsub1">
+					<br>
+					<input type="text"  value="{{wedclass1}}" name="wedclass1">
+				</td>
+				<td>
+					<input type="text"  value="{{thurssub1}}" name="thurssub1">
+					<br>
+					<input type="text"  value="{{thursclass1}}" name="thursclass1">
+				</td>
+				<td>
+					<input type="text" value="{{frisub1}}" name="frisub1">
+					<br>
+					<input type="text" value="{{friclass1}}" name="friclass1">
+				</td>
+			</tr>
+			<!--2 lecture-->
+			<tr>
+				<th name="2" id="monday">2</th>
+				<td>
+					<input type="text" value="{{monsub2}}" name="monsub2">
+					<br>
+					<input type="text" value="{{monclass2}}" name="monclass2">
+				</td>
+				<td>
+					<input type="text" value="{{tuesub2}}" name="tuesub2">
+					<br>
+					<input type="text"  value="{{tueclass2}}" name="tueclass2">
+				</td>
+				<td>
+					<input type="text" value="{{wedsub2}}" name="wedsub2">
+					<br>
+					<input type="text"  value="{{wedclass2}}" name="wedclass2">
+				</td>
+				<td>
+					<input type="text" value="{{thurssub2}}" name="thurssub2">
+					<br>
+					<input type="text" value="{{thursclass2}}" name="thursclass2">
+				</td>
+				<td>
+					<input type="text" value="{{frisub2}}" name="frisub2">
+					<br>
+					<input type="text" value="{{friclass2}}" name="friclass2">
+				</td>
+			</tr>
+			<!--3 lecture-->
+			<tr>
+				<th name="3" id="monday">3</th>
+				<td>
+					<input type="text" value="{{monsub3}}" name="monsub3">
+					<br>
+					<input type="text" value="{{monclass3}}" name="monclass3">
+				</td>
+				<td>
+					<input type="text" value="{{tuesub3}}" name="tuesub3">
+					<br>
+					<input type="text"  value="{{tueclass3}}" name="tueclass3">
+				</td>
+				<td>
+					<input type="text" value="{{wedsub3}}" name="wedsub3">
+					<br>
+					<input type="text" value="{{wedclass3}}" name="wedclass3">
+				</td>
+				<td>
+					<input type="text" value="{{thurssub3}}" name="thurssub3">
+					<br>
+					<input type="text" value="{{thursclass3}}" name="thursclass3">
+				</td>
+				<td>
+					<input type="text" value="{{frisub3}}" name="frisub3">
+					<br>
+					<input type="text" value="{{friclass3}}" name="friclass3">
+				</td>
+			</tr>
+			<!--4 lecture-->
+			<tr> 
+				<th name="4" id="monday">4</th>
+				<td>
+					<input type="text" value="{{monsub4}}" name="monsub4">
+					<br>
+					<input type="text" value="{{monclass4}}" name="monclass4">
+				</td>
+				<td>
+					<input type="text" value="{{tuesub4}}" name="tuesub4">
+					<br>
+					<input type="text"  value="{{tueclass4}}" name="tueclass4">
+				</td>
+				<td>
+					<input type="text" value="{{wedsub4}}" name="wedsub4">
+					<br>
+					<input type="text" value="{{wedclass4}}" name="wedclass4">
+				</td>
+				<td>
+					<input type="text" value="{{thurssub4}}" name="thurssub4">
+					<br>
+					<input type="text"  value="{{thursclass4}}" name="thursclass4">
+				</td>
+				<td>
+					<input type="text"  value="{{frisub4}}" name="frisub4">
+					<br>
+					<input type="text" value="{{friclass4}}" name="friclass4">
+				</td>
+			</tr>
+			<!--5 lecture-->
+			<tr> 
+				<th name="5" id="monday">5</th>
+				<td>
+					<input type="text" value="{{monsub5}}" name="monsub5">
+					<br>
+					<input type="text"  value="{{monclass5}}" name="monclass5">
+				</td>
+				<td>
+					<input type="text" value="{{tuesub5}}" name="tuesub5">
+					<br>
+					<input type="text" value="{{tueclass5}}" name="tueclass5">
+				</td>
+				<td>
+					<input type="text"  value="{{wedsub5}}" name="wedsub5">
+					<br>
+					<input type="text"  value="{{wedclass5}}" name="wedclass5">
+				</td>
+				<td>
+					<input type="text"  value="{{thurssub5}}" name="thurssub5">
+					<br>
+					<input type="text" value="{{thursclass5}}" name="thursclass5">
+				</td>
+				<td>
+					<input type="text" value="{{frisub5}}" name="frisub5">
+					<br>
+					<input type="text" value="{{friclass5}}" name="friclass5">
+				</td>
+			</tr>
+			<!--6 lecture-->
+			<tr>  
+				<th name="6" id="monday">6</th>
+				<td>
+					<input type="text"  value="{{monsub6}}" name="monsub6">
+					<br>
+					<input type="text"   value="{{monclass6}}" name="monclass6">
+				</td>
+				<td>
+					<input type="text"  value="{{tuesub6}}" name="tuesub6">
+					<br>
+					<input type="text"  value="{{tueclass6}}" name="tueclass6">
+				</td>
+				<td>
+					<input type="text"  value="{{wedsub6}}" name="wedsub6">
+					<br>
+					<input type="text"  value="{{wedclass6}}" name="wedclass6">
+				</td>
+				<td>
+					<input type="text"  value="{{thurssub6}}" name="thurssub6">
+					<br>
+					<input type="text" value="{{thursclass6}}" name="thursclass6">
+				</td>
+				<td>
+					<input type="text"  value="{{frisub6}}" name="frisub6">
+					<br>
+					<input type="text"  value="{{friclass6}}" name="friclass6">
+				</td>
+			</tr>
+			<!--7 lecture-->
+			<tr>
+				<th name="7" id="monday">7</th>
+				<td>
+					<input type="text"  value="{{monsub7}}" name="monsub7">
+					<br>
+					<input type="text"  value="{{monclass7}}" name="monclass7">
+				</td>
+				<td>
+					<input type="text"  value="{{tuesub7}}" name="tuesub7">
+					<br>
+					<input type="text"  value="{{tueclass7}}" name="tueclass7">
+				</td>
+				<td>
+					<input type="text"  value="{{wedsub7}}" name="wedsub7">
+					<br>
+					<input type="text"  value="{{wedclass7}}" name="wedclass7">
+				</td>
+				<td>
+					<input type="text"  value="{{thurssub7}}" name="thurssub7">
+					<br>
+					<input type="text"  value="{{thursclass7}}" name="thursclass7">
+				</td>
+				<td>
+					<input type="text"  value="{{frisub7}}" name="frisub7">
+					<br>
+					<input type="text"   value="{{friclass7}}" name="friclass7">
+				</td>
+			 </tr>
+
+			<!--8 lecture-->
+			<tr> 
+				<th name="8" id="monday">8</th>
+				<td>
+					<input type="text"  value="{{monsub8}}" name="monsub8">
+					<br>
+					<input type="text"  value="{{monclass8}}" name="monclass8">
+				</td>
+				<td>
+					<input type="text"  value="{{tuesub8}}" name="tuesub8">
+					<br>
+					<input type="text"  value="{{tueclass8}}" name="tueclass8">
+				</td>
+				<td>
+					<input type="text"   value="{{wedsub8}}" name="wedsub8">
+					<br>
+					<input type="text" value="{{wedclass8}}" name="wedclass8">
+				</td>
+				<td>
+					<input type="text"  value="{{thurssub8}}" name="thurssub8">
+					<br>
+					<input type="text"  value="{{thursclass8}}" name="thursclass8">
+				</td>
+				<td>
+					<input type="text" value="{{frisub8}}" name="frisub8">
+					<br>
+					<input type="text" value="{{friclass8}}" name="friclass8">
+				</td>
+			 </tr>
+			{{/each}}
+		<br> 	<input type="submit" value="Save Time Table" id="time" class="btn btn-success btn-lg">
+			
+</form>
+{{/if}}
 </template>
 
 <template name="toggle">
   <!-- Rounded switch -->
   <label class="switch">
-     <input type="checkbox" name="toggle" value="{{name}}" class="check">
+     <input type="checkbox" name="toggle" value="{{name}}" class="check" checked="on">
      <div class="slider round" > </div>
   </label>
 </template>
@@ -168,7 +772,7 @@
 		    	<option>        </option>
 		    	<option>        </option>
 	        	{{#each teacher}}
-                   	   <option value="{{name}}">{{name}}</option>
+                   	   <option value="{{name}}({{code}})">{{name}}({{code}})</option>
                  	{{/each}}
 	        </select>
                 </div>

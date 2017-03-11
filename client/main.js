@@ -8,28 +8,43 @@ Meteor.subscribe('timetable');
 Meteor.subscribe('user');
 Meteor.subscribe('login');
 
+
 Template.login.events({
-   'submit login':function(event){
-			var email= $('[name="email"]').val();
-			var password= $('[name="pass"]').val();
-			Meteor.call('logIn',email,password,function(err,alert){
+   'submit .form':function(event){
+			event.preventDefault();
+			var email=  event.target.email.value;
+			Session.set("getdata",email);
+                        var password= event.target.pass.value;
+			Meteor.call('logIn',email,password,function(err,data){
 						    if(err){
-							 console.log(err);
-							   } 
-						     else{ 
-							  Session.set('msg',alert); 
-							 }
-					         });
-			event.target.email.value     =" ";
-		        event.target.pass.value  =" ";
-
-
-
-
-
-                                 }   
+							console.log(err);
+							    } 
+						    else    { 
+						        Session.set('log',data); 
+							console.log("aagya g");
+							    }}
+						 );  
+			console.log("done");                  
+}
+	/*'click .check':function(evnet){
+		event.preventDefault();
+		var data=  event.target.check.value;
+		if(data=1){
+		 console.log("pclerk");
+		}
+		else if(data=2)
+		{
+		console.log("dclerk");
+		}
+		else if(data=3){
+		console.log("teacher");
+		}
+		else{
+		console.log("wrong entry");
+		}
+}*/
+		
 });
-
 Template.student.events({
     'submit .btn1': function(event){
          	event.preventDefault();
@@ -52,6 +67,30 @@ Template.student.events({
 		event.target.email.value  =" ";
     }
 });
+
+Template.rollno.events({
+    'submit .sub': function(event){
+         	event.preventDefault();
+		var deptt    = event.target.dept.value;
+		var year   = event.target.year.value;
+		var roll   = event.target.roll.value;
+		console.log(deptt);
+		console.log(year);
+		Meteor.call('getdata',deptt,year,function(err,data){
+						    if(err){
+							console.log(err);
+							    } 
+						    else    { 
+						        var last= data;
+							    }
+						
+    } 
+		);
+		
+		event.target.roll.value  =" ";
+    }
+});
+
 Template.insertSubject.events({
     'submit .sub': function(event){
          	event.preventDefault();
@@ -96,9 +135,11 @@ Template.allocateSubject.events({
 		//var sem     = Session.get("checks");
 		var subject = event.target.subject;
 		var teacher = event.target.teacher;
+		
 		//console.log(deptt);
 		//console.log(sem);
-		
+		console.log(subject);
+		console.log(teacher);
 			var assigned=[];
 			var notassigned=[];
 			for( s in subject) {
@@ -114,7 +155,6 @@ Template.allocateSubject.events({
 			//Meteor.call('takeAttendance',present,absent);
 			console.log(assigned);
 			console.log(notassigned);
-			console.log(teacher[t].value); 
  					
 		 
 		
@@ -248,7 +288,104 @@ Template.timeTable.events({
 			thurssub1,thurssub2,thurssub3,thurssub4,thurssub5,thurssub6,thurssub7,thurssub8,
 			thursclass1,thursclass2,thursclass3,thursclass4,thursclass5,thursclass6,thursclass7,thursclass8,
 			frisub1,frisub2,frisub3,frisub4,frisub5,frisub6,frisub7,frisub8,
-			friclass1,friclass2,friclass3,friclass4,friclass5,friclass6,friclass7,friclass8);		
+			friclass1,friclass2,friclass3,friclass4,friclass5,friclass6,friclass7,friclass8);
+		//1 sub
+		event.target.monsub1.value="Subject's name";
+		 event.target.tuesub1.value="Subject's name";
+		 event.target.wedsub1.value="Subject's name";
+		 event.target.thurssub1.value="Subject's name";
+		event.target.frisub1.value="Subject's name";
+		//2 sub
+		 event.target.monsub2.value="Subject's name";
+		 event.target.tuesub2.value="Subject's name";
+		 event.target.wedsub2.value="Subject's name";
+		 event.target.thurssub2.value="Subject's name";
+		 event.target.frisub2.value="Subject's name";
+		//3 sub
+		 event.target.monsub3.value="Subject's name";
+		 event.target.tuesub3.value="Subject's name";
+		event.target.wedsub3.value="Subject's name";
+		 event.target.thurssub3.value="Subject's name";
+		 event.target.frisub3.value="Subject's name";
+		//4 sub
+		 event.target.monsub4.value="Subject's name";
+		 event.target.tuesub4.value="Subject's name";
+		 event.target.wedsub4.value="Subject's name";
+		 event.target.thurssub4.value="Subject's name";
+		 event.target.frisub4.value="Subject's name";
+		//5 sub
+		 event.target.monsub5.value="Subject's name";
+		 event.target.tuesub5.value="Subject's name";
+		event.target.wedsub5.value="Subject's name";
+		event.target.thurssub5.value="Subject's name";
+		 event.target.frisub5.value="Subject's name";
+		//6 sub
+		event.target.monsub6.value="Subject's name";
+		event.target.tuesub6.value="Subject's name";
+	        event.target.wedsub6.value="Subject's name";
+		event.target.thurssub6.value="Subject's name";
+		event.target.frisub6.value="Subject's name";
+		//7 sub
+		event.target.monsub7.value="Subject's name";
+		event.target.tuesub7.value="Subject's name";
+		event.target.wedsub7.value="Subject's name";
+		event.target.thurssub7.value="Subject's name";
+		event.target.frisub7.value="Subject's name";
+		//8 sub
+		 event.target.monsub8.value="Subject's name";
+		event.target.tuesub8.value="Subject's name";
+		event.target.wedsub8.value="Subject's name";
+		event.target.thurssub8.value="Subject's name";
+		event.target.frisub8.value="Subject's name";
+		//classname start
+		//1 class
+		event.target.monclass1.value="Classname";
+		event.target.tueclass1.value="Classname";
+		event.target.wedclass1.value="Classname";
+		event.target.thursclass1.value="Classname";
+		event.target.friclass1.value="Classname";
+		//2 class
+		event.target.monclass2.value="Classname";
+		event.target.tueclass2.value="Classname";
+		event.target.wedclass2.value="Classname";
+		event.target.thursclass2.value="Classname";
+		event.target.friclass2.value="Classname";
+		//3 class
+		event.target.monclass3.value="Classname";
+		event.target.tueclass3.value="Classname";
+		event.target.wedclass3.value="Classname";
+		event.target.thursclass3.value="Classname";
+		event.target.friclass3.value="Classname";
+		//4 class
+		event.target.monclass4.value="Classname";
+		event.target.tueclass4.value="Classname";
+		event.target.wedclass4.value="Classname";
+		event.target.thursclass4.value="Classname";
+		event.target.friclass4.value="Classname";
+		//5 class
+		 event.target.monclass5.value="Classname";
+		event.target.tueclass5.value="Classname";
+		event.target.wedclass5.value="Classname";
+		event.target.thursclass5.value="Classname";
+		event.target.friclass5.value="Classname";
+		//6 class
+		event.target.monclass6.value="Classname";
+		 event.target.tueclass6.value="Classname";
+		event.target.wedclass6.value="Classname";
+		event.target.thursclass6.value="Classname";
+		event.target.friclass6.value="Classname";
+		//7 class
+		event.target.monclass7.value="Classname";
+		event.target.tueclass7.value="Classname";
+		event.target.wedclass7.value="Classname";
+		event.target.thursclass7.value="Classname";
+		event.target.friclass7.value="Classname";
+		//8 class
+		event.target.monclass8.value="Classname";
+		event.target.tueclass8.value="Classname";
+		event.target.wedclass8.value="Classname";
+		 event.target.thursclass8.value="Classname";
+		event.target.friclass8.value="Classname";		
 }});
 
 Template.teacher.events({
@@ -285,8 +422,10 @@ Template.departmentInformation.events({
 		event.target.hod.value   =" ";
     }
 });
+Template.riAttendance.onRendered(function(event){console.log("chl peya");})
 		
-Template.retrieveInformation.events({
+Template.riAttendance.events({
+	
 	'submit .toggle':function(event){
 			event.preventDefault();
 			var targets = event.target.toggle;
@@ -303,8 +442,66 @@ Template.retrieveInformation.events({
 				    }
 					   }
 			Meteor.call('takeAttendance',present,absent);
- 					}  
+ 					},
+	'submit .sub': function(event){
+         	event.preventDefault();
+		var deptt = event.target.dept.value;
+		var year  = event.target.year.value;
+		console.log(deptt);
+		console.log(year);
+		Meteor.call('getData',deptt,year,function(err,data){
+						    if(err){
+							console.log(err);
+							    } 
+						    else    { 
+						        Session.set('data',data);
+							    }
+						 });
+    } 
 });
+Template.riInformation.events({
+	'submit .info':function(event){
+			event.preventDefault();
+			 var email=Session.get("getdata");
+				console.log(email);
+			Meteor.call('inFo',email,function(err,data){
+						    if(err){
+							console.log(err);
+							    } 
+						    else    { 
+						         Session.set('info',data);
+							console.log(data);
+							    }
+
+						 });
+		}
+		 
+});
+
+
+Template.editTable.events({
+	'click .edittt':function(event){
+			event.preventDefault();		
+			var email=Session.get("getdata");
+				console.log(email);
+				Meteor.call('infoTable',email,function(err,data){
+						    if(err){
+							console.log(err);
+							    } 
+						    else    { 
+						         Session.set('infott',data);
+							console.log(data);
+							    }
+
+						 });
+		}
+		 });
+
+
+
+
+
+
 
 //helpers
 Template.teacher.helpers({
@@ -328,26 +525,71 @@ Template.teacher.helpers({
     }
 });
 
-Template.retrieveInformation.helpers({
-    'databaseCall': function(){
-        return Students.find().fetch();
-    }
-});
-
-Template.retrieveInformation.helpers({
-    'department':function(){
+Template.riAttendance.helpers({
+ 
+	'info':function(){
+	var data= Session.get("data");
+		return data;},
+'department':function(){
 	 return Departments.find().fetch();
      }
 });
 
+Template.editTable.helpers({
+ 
+	'infott':function(){
+	var tt= Session.get("infott");
+		return tt;
+		}
+});
+
+Template.riTimetable.helpers({
+ 
+	'infott':function(){
+	var tt= Session.get("infott");
+		return tt;
+		}
+});
+
+Template.riInformation.helpers({
+	'information':function(){
+	var data= Session.get("info");
+	console.log(data);
+	return data;
+	},
+	'date': function(){
+        var d = new Date();
+	var dor= d.getDate();
+	return dor; 
+    },
+    'month': function(){
+        var d = new Date();
+	var mor= d.getMonth() + 1;
+	return mor; 
+    },
+    'year': function(){
+        var d = new Date();
+	var yor= d.getFullYear();
+	return yor; 
+    }
+});
+ //check this 
 Template.login.helpers({
     'login':function(){
-	 var alert= Session.get("msg");
-	return alert;
+	 var data= Session.get("log");
+	console.log(data);
+	var id= data.uid;
+	console.log(id);
+     }
+});
+// till this
+Template.student.helpers({
+    'department':function(){
+       	return Departments.find().fetch();
      }
 });
 
-Template.student.helpers({
+Template.rollno.helpers({
     'department':function(){
        	return Departments.find().fetch();
      }
@@ -388,14 +630,3 @@ Template.allocateSubject.helpers({
 	 return founds;
     }
 });	
-		
-
-
-
-
-
-
-
-
-
-
